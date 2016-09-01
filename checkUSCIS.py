@@ -23,15 +23,12 @@ while (var == 1):
     time.sleep(10)
     text = driver.find_element_by_class_name("text-center").text
     driver.close()
-    if (text.find('Biometricssd') == -1):
+    if (text.find('Biometrics') == -1):
         break
     # Wait 12 hours before checking again
     time.sleep(43200)
 
 # Out of loop
-#print("Search term not found in text")
-#print(text)
-
 # Send e-mail to recipient including the results
 message = 'Subject: %s\n\n%s' % ("Case Update!", text)
 print("Case has been updated, sending e-mail")
