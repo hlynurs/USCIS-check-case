@@ -8,6 +8,8 @@ from email.mime.text import MIMEText
 url = sys.argv[1]
 receipt = sys.argv[2]
 email = sys.argv[3]
+userid = sys.argv[4]
+userpassword = sys.argv[5]
 
 #print("Sending information to website")
 var = 1
@@ -18,13 +20,8 @@ while (var == 1):
     elem.clear()
     elem.send_keys(receipt)
     elem.submit()
-    #elem.send_keys(Keys.RETURN)
-    #print("Extracting text from results...")
     time.sleep(10)
     text = driver.find_element_by_class_name("text-center").text
-    #print("Between finding element by class name and getting attribute")
-    #print("Results: ")
-    #print(text)
     driver.close()
     if (text.find('Biometricssd') == -1):
         break
@@ -36,11 +33,12 @@ while (var == 1):
 #print(text)
 
 # Send e-mail to recipient including the results
-msg = MIMEText(text)
-msg['From'] = 'caseChecker@python.com'
-msg['To'] = email
-msg['Subject'] = "Case Update!"
-
-s = smtplib.SMTP('Outgoing.verizon.net')
-s.send_message(msg)
+message = 'Subject: %s\n\n%s' % ("Case Update!", text)
+print("Case has been updated, sending e-mail")
+s = smtplib.SMTP('smtp.gmail.com:587')
+s.starttls()
+s.ehlo()
+s.login(userid, userpassword)
+s.sendmail('caseCheck@python.com', email, message)
+print("E-mail sent!")
 s.quit
