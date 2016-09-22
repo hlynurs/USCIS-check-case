@@ -48,7 +48,7 @@ s = smtplib.SMTP('smtp.gmail.com:587')
 s.starttls()
 s.ehlo()
 s.login(userid, userpassword)
-#s.sendmail('caseCheck@python.com', email, message)
+s.sendmail('caseCheck@python.com', email, message)
 print("E-mail sent!")
 s.quit
 
